@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthify</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='medical-background.jpg.jpg') }}");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(249, 250, 251, 0.85);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body class="p-6">
+  <div class="content-wrapper">
+  <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+    <div class="mb-4">
+      <div class="flex items-center space-x-2">
+        <iconify-icon icon="lucide:heart-pulse" class="text-red-500 text-xl"></iconify-icon>
+        <h1 class="text-xl font-semibold">Healthify</h1>
+      </div>
+      <p class="text-sm text-gray-500">Enter your medical and economic information to estimate life expectancy</p>
+    </div>
+    <hr class="my-4">
+
+    <form method="POST" action="/predict" id="lifeForm" class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Personal Information -->
+        <div class="space-y-4">
+          <h2 class="text-lg font-medium">Personal Information</h2>
+          <div>
+            <label for="age" class="block text-sm font-medium">Age</label>
+            <input id="age" name="age" type="number" min="1" max="120" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+          </div>
+          <div>
+            <label for="gender" class="block text-sm font-medium">Gender</label>
+            <select id="gender" name="gender" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div>
+            <label for="country" class="block text-sm font-medium">Country/Region</label>
+            <select id="country" name="country" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+              <option value="" disabled selected hidden>Select a value</option>
+              {% for country in countries %}
+                <option value="{{ country }}">{{ country }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="height" class="block text-sm font-medium">Height (cm)</label>
+              <input id="height" name="height" type="number" min="50" max="250" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            </div>
+            <div>
+              <label for="weight" class="block text-sm font-medium">Weight (kg)</label>
+              <input id="weight" name="weight" type="number" min="10" max="300" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            </div>
+          </div>
+          <div>
+            <label for="bmi" class="block text-sm font-medium">BMI</label>
+            <input id="bmi" name="bmi" type="number" min="2" max="204" step="0.1" class="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100" readonly required>
+          </div>
+          <button type="button" onclick="calculateBMI()" class="w-full bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md">Calculate BMI</button>
+        </div>
+
+        <!-- Health Factors -->
+        <div class="space-y-4">
+          <h2 class="text-lg font-medium">Health Factors</h2>
+          <div>
+            <label for="exercise" class="block text-sm font-medium">Exercise Hours per Week</label>
+            <input id="exercise" name="exercise" type="number" min="0" max="168" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+          </div>
+          <div>
+            <label for="diet" class="block text-sm font-medium">Diet Type</label>
+            <select id="diet" name="diet" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+              <option value="">Select Diet Type</option>
+              <option value="Healthy">Healthy</option>
+              <option value="Balanced">Balanced</option>
+              <option value="Unhealthy">Unhealthy</option>
+            </select>
+          </div>
+          <div>
+            <label for="medical" class="block text-sm font-medium">Medical History</label>
+            <select id="medical" name="medical" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+              <option value="">Select Medical History</option>
+              <option value="Fit">Fit</option>
+              <option value="Cancer">Cancer</option>
+              <option value="Diabetes">Diabetes</option>
+              <option value="Asthma">Asthma</option>
+              <option value="HIV/AIDS">HIV/AIDS</option>
+              <option value="Heart Disease">Heart Disease</option>
+              <option value="Kidney & Liver Diseases">Kidney & Liver Diseases</option>
+            </select>
+          </div>
+          <div>
+            <label for="stress" class="block text-sm font-medium">Work Stress Level</label>
+            <select id="stress" name="stress" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+              <option value="">Select Work Stress Level</option>
+              <option value="Low">Low</option>
+              <option value="Moderate">Moderate</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+          <div>
+            <label for="smoking" class="block text-sm font-medium">Smoking Level</label>
+            <select id="smoking" name="smoking" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+              <option value="">Select Smoking Level</option>
+              <option value="Never">Never</option>
+              <option value="Low">Low</option>
+              <option value="Moderate">Moderate</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+          <div>
+            <label for="alcohol" class="block text-sm font-medium">Alcohol Consumption</label>
+            <select id="alcohol" name="alcohol" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+              <option value="">Select Alcohol Consumption</option>
+              <option value="Never">Never</option>
+              <option value="Low">Low</option>
+              <option value="Moderate">Moderate</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+          <div>
+            <label for="social" class="block text-sm font-medium">Social Life Level</label>
+            <select id="social" name="social" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+              <option value="">Select Social Life Level</option>
+              <option value="Low">Low</option>
+              <option value="Moderate">Moderate</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Health Metrics -->
+      <div class="space-y-4 mt-6">
+        <h2 class="text-lg font-medium">Additional Health Metrics</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="sleep" class="block text-sm font-medium">Sleep Hours (1-24)</label>
+            <input id="sleep" name="sleep" type="number" min="1" max="24" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+          </div>
+          <div>
+            <label for="heartRate" class="block text-sm font-medium">Heart Rate (bpm)</label>
+            <input id="heartRate" name="heartRate" type="number" min="27" max="480" step="0.1" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+          </div>
+          <div>
+            <label for="spo2" class="block text-sm font-medium">SpO₂ Level (%)</label>
+            <input id="spo2" name="spo2" type="number" min="6" max="100" step="0.1" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+          </div>
+          <div>
+            <label for="temperature" class="block text-sm font-medium">Body Temperature (°C)</label>
+            <input id="temperature" name="temperature" type="number" min="13" max="50" step="0.1" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Socio-Economic Factors -->
+      <div class="space-y-4 mt-6">
+        <h2 class="text-lg font-medium">Socio-Economic Factors</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="income" class="block text-sm font-medium">Income Level</label>
+            <select name="income" id="income" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+              <option value="">Select income level</option>
+              <option value="very_low">Very low</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="very_high">Very high</option>
+            </select>      
+          </div>
+          <div>
+            <label for="education" class="block text-sm font-medium">Education Level</label>
+            <select id="education" name="education" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+              <option value="">Select education level</option>
+              <option value="4">Primary education</option>
+              <option value="9">Lower secondary education</option>
+              <option value="11">Upper secondary education</option>
+              <option value="13">College</option>
+              <option value="15">Higher education (Bachelor's)</option>
+              <option value="16.5">Master's degree</option>
+              <option value="18.5">Postgraduate (PhD)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-4 mt-6">
+        <button type="button" onclick="populateFormWithFirebaseData()" class="bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded">Fetch My Health Stats</button>
+        <button type="reset" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded">Clear</button>
+        <button type="submit" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded">Predict</button>
+      </div>
+    </form>
+    <div id="result"></div>
+
+    {% if result %}
+    <div id="resultSection" class="mt-6 p-4 bg-green-100 rounde">
+      <h2 class="text-lg font-semibold">Predicted Life Expectancy:</h2>
+      <p id="resultText" class="text-2xl text-blue-600 font-bold">{{ result }} years</p>
+    </div>
+    {% endif %}
+  </div>
+  </div>
+
+<script>
+// ================= BMI CALCULATION =================
+function calculateBMI() {
+  const height = parseFloat(document.getElementById('height').value);
+  const weight = parseFloat(document.getElementById('weight').value);
+
+  if (height > 0 && weight > 0) {
+    const bmi = weight / Math.pow(height / 100, 2);
+    document.getElementById('bmi').value = bmi.toFixed(2);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('height').addEventListener('input', calculateBMI);
+  document.getElementById('weight').addEventListener('input', calculateBMI);
+});
+
+// ================= FORM MAPPING =================
+function mapFormDataToBackend(form) {
+  const smokingMap = {
+    'Never': 'none',
+    'Low': 'light',
+    'Moderate': 'regular',
+    'High': 'regular'
+  };
+
+  const alcoholMap = {
+    'Never': 0,
+    'Low': 2,
+    'Moderate': 7,
+    'High': 15
+  };
+
+  return {
+    age: parseInt(form.age.value),
+    country: form.country.value,
+    height: parseFloat(form.height.value),
+    weight: parseFloat(form.weight.value),
+    smoking: smokingMap[form.smoking.value] || 'none',
+    alcohol: alcoholMap[form.alcohol.value] || 0,
+
+    // 🔒 SAFE DEFAULTS (VERY IMPORTANT)
+    education: parseFloat(form.education.value) || 10,
+    income: form.income.value || 'medium'
+  };
+}
+
+// ================= SUBMIT HANDLER =================
+document.getElementById('lifeForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const form = e.target;
+  const backendData = mapFormDataToBackend(form);
+
+  try {
+    const response = await fetch('/predict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(backendData)
+    });
+
+    if (!response.ok) {
+      throw new Error('Prediction failed');
+    }
+
+    const result = await response.json();
+
+    // 🔒 STRONG VALIDATION
+    const life = Number(result.result);
+    if (isNaN(life)) {
+      alert('Prediction failed. Please fill all fields correctly.');
+      return;
+    }
+
+    // ✅ REDIRECT TO RESULT PAGE
+    const params = new URLSearchParams();
+    params.append('predicted_life_expectancy', life);
+    params.append('age', backendData.age);
+
+    window.location.href = `/result?${params.toString()}`;
+
+  } catch (error) {
+    alert('Error: ' + error.message);
+  }
+});
+</script>
+
+
+
+</body>
+</html>

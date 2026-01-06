@@ -1,2 +1,0 @@
-# Life-Prediction-System
-
