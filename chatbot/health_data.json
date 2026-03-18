@@ -1,0 +1,656 @@
+{
+  "fever": {
+    "symptoms_en": "High body temperature, sweating, chills",
+    "symptoms_hi": "उच्च शरीर का तापमान, पसीना आना, ठंड लगना",
+
+    "causes_en": "Viral infection, bacterial infection",
+    "causes_hi": "वायरल संक्रमण, बैक्टीरियल संक्रमण",
+
+    "medicines": ["Paracetamol", "Dolo 650", "Crocin"],
+
+    "treatment_en": "Rest and drink fluids",
+    "treatment_hi": "आराम करें और तरल पदार्थ पिएं",
+
+    "doctor_en": "See doctor if fever lasts more than 3 days",
+    "doctor_hi": "अगर बुखार 3 दिन से ज्यादा रहे तो डॉक्टर से मिलें"
+  },
+
+  "headache": {
+    "symptoms_en": "Pain in head, pressure in temples",
+    "symptoms_hi": "सिर में दर्द, कनपटियों में दबाव",
+
+    "causes_en": "Stress, dehydration",
+    "causes_hi": "तनाव, पानी की कमी",
+
+    "medicines": ["Paracetamol", "Ibuprofen", "Combiflam"],
+
+    "treatment_en": "Rest and drink water",
+    "treatment_hi": "आराम करें और पानी पिएं"
+  },
+
+  "cold": {
+    "symptoms_en": "Runny nose, sneezing, sore throat",
+    "symptoms_hi": "नाक बहना, छींक आना, गले में खराश",
+
+    "causes_en": "Viral infection",
+    "causes_hi": "वायरल संक्रमण",
+
+    "medicines": ["Cetirizine", "Sinarest", "Vicks Action 500"],
+
+    "treatment_en": "Rest and warm fluids",
+    "treatment_hi": "आराम करें और गर्म पेय लें"
+  },
+
+  "flu": {
+    "symptoms_en": "Fever, cough, body pain",
+    "symptoms_hi": "बुखार, खांसी, शरीर में दर्द",
+
+    "causes_en": "Influenza virus",
+    "causes_hi": "इन्फ्लुएंजा वायरस",
+
+    "medicines": ["Oseltamivir", "Paracetamol"],
+
+    "treatment_en": "Rest and antiviral medicine",
+    "treatment_hi": "आराम करें और एंटीवायरल दवा लें"
+  },
+
+  "diabetes": {
+    "symptoms_en": "Frequent urination, thirst, fatigue",
+    "symptoms_hi": "बार-बार पेशाब आना, ज्यादा प्यास लगना, थकान",
+
+    "causes_en": "High blood sugar due to insulin problem",
+    "causes_hi": "इंसुलिन की समस्या के कारण हाई ब्लड शुगर",
+
+    "medicines": ["Metformin", "Insulin"],
+
+    "treatment_en": "Healthy diet and medication",
+    "treatment_hi": "संतुलित आहार और दवा"
+  },
+
+  "hypertension": {
+    "symptoms_en": "Headache, dizziness",
+    "symptoms_hi": "सिर दर्द, चक्कर आना",
+
+    "causes_en": "High salt intake, stress",
+    "causes_hi": "ज्यादा नमक, तनाव",
+
+    "medicines": ["Amlodipine", "Losartan"],
+
+    "treatment_en": "Reduce salt and exercise",
+    "treatment_hi": "नमक कम करें और व्यायाम करें"
+  },
+
+  "asthma": {
+    "symptoms_en": "Shortness of breath, wheezing",
+    "symptoms_hi": "सांस लेने में दिक्कत, सीटी जैसी आवाज",
+
+    "causes_en": "Allergies, pollution",
+    "causes_hi": "एलर्जी, प्रदूषण",
+
+    "medicines": ["Salbutamol inhaler", "Budesonide"],
+
+    "treatment_en": "Use inhaler and avoid triggers",
+    "treatment_hi": "इनहेलर का उपयोग करें और ट्रिगर से बचें"
+  },
+
+  "migraine": {
+    "symptoms_en": "Severe headache, nausea",
+    "symptoms_hi": "तेज सिर दर्द, मतली",
+
+    "causes_en": "Stress, hormonal changes",
+    "causes_hi": "तनाव, हार्मोनल बदलाव",
+
+    "medicines": ["Sumatriptan", "Ibuprofen"],
+
+    "treatment_en": "Rest in dark room",
+    "treatment_hi": "अंधेरे कमरे में आराम करें"
+  },
+
+  "stomach pain": {
+    "symptoms_en": "Pain in abdomen, cramps",
+    "symptoms_hi": "पेट में दर्द, ऐंठन",
+
+    "causes_en": "Gas, indigestion",
+    "causes_hi": "गैस, अपच",
+
+    "medicines": ["Dicyclomine", "Meftal Spas"],
+
+    "treatment_en": "Light food and hydration",
+    "treatment_hi": "हल्का भोजन करें और पानी पिएं"
+  },
+
+  "food poisoning": {
+    "symptoms_en": "Vomiting, diarrhea",
+    "symptoms_hi": "उल्टी, दस्त",
+
+    "causes_en": "Contaminated food",
+    "causes_hi": "दूषित भोजन",
+
+    "medicines": ["ORS", "Domperidone"],
+
+    "treatment_en": "Drink ORS and rest",
+    "treatment_hi": "ओआरएस पिएं और आराम करें"
+  },
+
+  "diarrhea": {
+  "symptoms_en": "Loose stools, dehydration, stomach cramps",
+  "symptoms_hi": "ढीला मल, शरीर में पानी की कमी, पेट में ऐंठन",
+
+  "causes_en": "Infection, contaminated food or water",
+  "causes_hi": "संक्रमण, दूषित भोजन या पानी",
+
+  "medicines": ["ORS", "Loperamide", "Racecadotril"],
+
+  "treatment_en": "Drink ORS and stay hydrated",
+  "treatment_hi": "ओआरएस पिएं और शरीर में पानी बनाए रखें"
+},
+
+"constipation": {
+  "symptoms_en": "Difficulty passing stool, hard stool",
+  "symptoms_hi": "मल त्याग में कठिनाई, कठोर मल",
+
+  "causes_en": "Low fiber diet, dehydration",
+  "causes_hi": "कम फाइबर वाला आहार, पानी की कमी",
+
+  "medicines": ["Lactulose", "Isabgol", "Bisacodyl"],
+
+  "treatment_en": "Eat fiber rich foods and drink water",
+  "treatment_hi": "फाइबर युक्त भोजन करें और पानी पिएं"
+},
+
+"anemia": {
+  "symptoms_en": "Fatigue, pale skin, weakness",
+  "symptoms_hi": "थकान, पीली त्वचा, कमजोरी",
+
+  "causes_en": "Iron deficiency",
+  "causes_hi": "आयरन की कमी",
+
+  "medicines": ["Iron tablets", "Ferrous sulfate", "Folic acid"],
+
+  "treatment_en": "Iron rich foods and supplements",
+  "treatment_hi": "आयरन युक्त भोजन और सप्लीमेंट लें"
+},
+
+"allergy": {
+  "symptoms_en": "Sneezing, itching, skin rash",
+  "symptoms_hi": "छींक आना, खुजली, त्वचा पर चकत्ते",
+
+  "causes_en": "Dust, pollen, food allergens",
+  "causes_hi": "धूल, पराग, खाद्य एलर्जी",
+
+  "medicines": ["Cetirizine", "Loratadine", "Fexofenadine"],
+
+  "treatment_en": "Avoid allergens and take antihistamines",
+  "treatment_hi": "एलर्जी से बचें और एंटीहिस्टामिन लें"
+},
+
+"bronchitis": {
+  "symptoms_en": "Persistent cough, mucus production",
+  "symptoms_hi": "लगातार खांसी, बलगम बनना",
+
+  "causes_en": "Respiratory infection",
+  "causes_hi": "श्वसन संक्रमण",
+
+  "medicines": ["Ambroxol", "Salbutamol", "Dextromethorphan"],
+
+  "treatment_en": "Rest, fluids and cough medicine",
+  "treatment_hi": "आराम करें, तरल पदार्थ लें और खांसी की दवा लें"
+},
+
+"pneumonia": {
+  "symptoms_en": "Fever, cough, chest pain, difficulty breathing",
+  "symptoms_hi": "बुखार, खांसी, छाती में दर्द, सांस लेने में कठिनाई",
+
+  "causes_en": "Bacterial or viral infection",
+  "causes_hi": "बैक्टीरियल या वायरल संक्रमण",
+
+  "medicines": ["Azithromycin", "Amoxicillin", "Paracetamol"],
+
+  "treatment_en": "Antibiotics and rest",
+  "treatment_hi": "एंटीबायोटिक और आराम"
+},
+
+"arthritis": {
+  "symptoms_en": "Joint pain, stiffness, swelling",
+  "symptoms_hi": "जोड़ों में दर्द, जकड़न, सूजन",
+
+  "causes_en": "Joint inflammation",
+  "causes_hi": "जोड़ों की सूजन",
+
+  "medicines": ["Ibuprofen", "Diclofenac", "Naproxen"],
+
+  "treatment_en": "Exercise and anti inflammatory medicines",
+  "treatment_hi": "व्यायाम और सूजन कम करने की दवा"
+},
+
+"skin infection": {
+  "symptoms_en": "Redness, itching, swelling",
+  "symptoms_hi": "लालिमा, खुजली, सूजन",
+
+  "causes_en": "Bacterial or fungal infection",
+  "causes_hi": "बैक्टीरिया या फंगस संक्रमण",
+
+  "medicines": ["Clotrimazole", "Ketoconazole", "Mupirocin"],
+
+  "treatment_en": "Use antifungal or antibacterial cream",
+  "treatment_hi": "एंटीफंगल या एंटीबैक्टीरियल क्रीम लगाएं"
+},
+
+"dehydration": {
+  "symptoms_en": "Dry mouth, dizziness, fatigue",
+  "symptoms_hi": "मुंह सूखना, चक्कर, थकान",
+
+  "causes_en": "Lack of water intake",
+  "causes_hi": "पानी की कमी",
+
+  "medicines": ["ORS", "Electral"],
+
+  "treatment_en": "Drink water and oral rehydration solution",
+  "treatment_hi": "पानी और ओआरएस पिएं"
+},
+
+"insomnia": {
+  "symptoms_en": "Difficulty sleeping, waking up frequently",
+  "symptoms_hi": "नींद आने में कठिनाई, बार-बार जागना",
+
+  "causes_en": "Stress, anxiety",
+  "causes_hi": "तनाव, चिंता",
+
+  "medicines": ["Melatonin", "Zolpidem"],
+
+  "treatment_en": "Maintain regular sleep schedule",
+  "treatment_hi": "नियमित नींद की आदत बनाएं"
+},
+
+"gastritis": {
+  "symptoms_en": "Burning stomach pain, nausea, bloating",
+  "symptoms_hi": "पेट में जलन, मतली, पेट फूलना",
+
+  "causes_en": "Stomach lining inflammation, spicy food, infection",
+  "causes_hi": "पेट की परत में सूजन, ज्यादा मसालेदार भोजन, संक्रमण",
+
+  "medicines": ["Pantoprazole", "Omeprazole", "Antacids"],
+
+  "treatment_en": "Avoid spicy food and take antacids",
+  "treatment_hi": "मसालेदार भोजन से बचें और एंटासिड लें"
+},
+
+"acid reflux": {
+  "symptoms_en": "Heartburn, sour taste in mouth",
+  "symptoms_hi": "सीने में जलन, मुंह में खट्टा स्वाद",
+
+  "causes_en": "Stomach acid flowing back into esophagus",
+  "causes_hi": "पेट का अम्ल भोजन नली में वापस आना",
+
+  "medicines": ["Pantoprazole", "Ranitidine", "Antacids"],
+
+  "treatment_en": "Eat small meals and avoid oily food",
+  "treatment_hi": "कम मात्रा में भोजन करें और तला हुआ खाना न खाएं"
+},
+
+"tonsillitis": {
+  "symptoms_en": "Sore throat, difficulty swallowing, fever",
+  "symptoms_hi": "गले में दर्द, निगलने में कठिनाई, बुखार",
+
+  "causes_en": "Viral or bacterial infection",
+  "causes_hi": "वायरल या बैक्टीरियल संक्रमण",
+
+  "medicines": ["Amoxicillin", "Paracetamol", "Ibuprofen"],
+
+  "treatment_en": "Warm fluids and rest",
+  "treatment_hi": "गर्म तरल पदार्थ लें और आराम करें"
+},
+
+"sinusitis": {
+  "symptoms_en": "Facial pain, blocked nose, headache",
+  "symptoms_hi": "चेहरे में दर्द, नाक बंद होना, सिर दर्द",
+
+  "causes_en": "Sinus infection",
+  "causes_hi": "साइनस संक्रमण",
+
+  "medicines": ["Amoxicillin", "Cetirizine", "Nasal spray"],
+
+  "treatment_en": "Steam inhalation and medication",
+  "treatment_hi": "भाप लें और दवा का उपयोग करें"
+},
+
+"ear infection": {
+  "symptoms_en": "Ear pain, hearing difficulty",
+  "symptoms_hi": "कान में दर्द, सुनने में कठिनाई",
+
+  "causes_en": "Bacterial or viral infection",
+  "causes_hi": "बैक्टीरियल या वायरल संक्रमण",
+
+  "medicines": ["Amoxicillin", "Paracetamol"],
+
+  "treatment_en": "Antibiotics and pain relief",
+  "treatment_hi": "एंटीबायोटिक और दर्द की दवा"
+},
+
+"toothache": {
+  "symptoms_en": "Pain in tooth, sensitivity",
+  "symptoms_hi": "दांत में दर्द, संवेदनशीलता",
+
+  "causes_en": "Cavity or infection",
+  "causes_hi": "कैविटी या संक्रमण",
+
+  "medicines": ["Ibuprofen", "Paracetamol"],
+
+  "treatment_en": "Dental checkup and pain relief medicine",
+  "treatment_hi": "डेंटल जांच और दर्द की दवा"
+},
+
+"urinary infection": {
+  "symptoms_en": "Burning urination, frequent urination",
+  "symptoms_hi": "पेशाब में जलन, बार-बार पेशाब आना",
+
+  "causes_en": "Bacterial infection in urinary tract",
+  "causes_hi": "मूत्र मार्ग में बैक्टीरियल संक्रमण",
+
+  "medicines": ["Nitrofurantoin", "Ciprofloxacin"],
+
+  "treatment_en": "Drink water and take antibiotics",
+  "treatment_hi": "पानी ज्यादा पिएं और एंटीबायोटिक लें"
+},
+
+"dengue": {
+  "symptoms_en": "High fever, body pain, headache",
+  "symptoms_hi": "तेज बुखार, शरीर में दर्द, सिर दर्द",
+
+  "causes_en": "Mosquito transmitted virus",
+  "causes_hi": "मच्छर से फैलने वाला वायरस",
+
+  "medicines": ["Paracetamol"],
+
+  "treatment_en": "Rest, fluids and medical monitoring",
+  "treatment_hi": "आराम करें, तरल पदार्थ लें और डॉक्टर की निगरानी में रहें"
+},
+
+"malaria": {
+  "symptoms_en": "Fever with chills, sweating",
+  "symptoms_hi": "बुखार के साथ ठंड लगना और पसीना",
+
+  "causes_en": "Parasite transmitted by mosquito",
+  "causes_hi": "मच्छर से फैलने वाला परजीवी",
+
+  "medicines": ["Artemether", "Lumefantrine"],
+
+  "treatment_en": "Antimalarial medication",
+  "treatment_hi": "एंटी मलेरियल दवा"
+},
+
+"typhoid": {
+  "symptoms_en": "Prolonged fever, weakness, stomach pain",
+  "symptoms_hi": "लंबे समय तक बुखार, कमजोरी, पेट दर्द",
+
+  "causes_en": "Salmonella bacteria infection",
+  "causes_hi": "साल्मोनेला बैक्टीरिया संक्रमण",
+
+  "medicines": ["Cefixime", "Azithromycin"],
+
+  "treatment_en": "Antibiotics and rest",
+  "treatment_hi": "एंटीबायोटिक और आराम"
+},
+
+"high cholesterol": {
+  "symptoms_en": "Usually no symptoms, may cause chest pain later",
+  "symptoms_hi": "आमतौर पर लक्षण नहीं होते, बाद में सीने में दर्द हो सकता है",
+
+  "causes_en": "High fat diet, obesity, lack of exercise",
+  "causes_hi": "ज्यादा वसा वाला भोजन, मोटापा, व्यायाम की कमी",
+
+  "medicines": ["Atorvastatin", "Rosuvastatin"],
+
+  "treatment_en": "Healthy diet, exercise, cholesterol lowering medicine",
+  "treatment_hi": "स्वस्थ आहार, व्यायाम और कोलेस्ट्रॉल कम करने की दवा"
+},
+
+"coronary artery disease": {
+  "symptoms_en": "Chest pain, shortness of breath",
+  "symptoms_hi": "सीने में दर्द, सांस फूलना",
+
+  "causes_en": "Plaque buildup in heart arteries",
+  "causes_hi": "हृदय की धमनियों में प्लाक जमना",
+
+  "medicines": ["Aspirin", "Atorvastatin", "Nitroglycerin"],
+
+  "treatment_en": "Medication, lifestyle changes",
+  "treatment_hi": "दवा और जीवनशैली में बदलाव"
+},
+
+"heart attack": {
+  "symptoms_en": "Severe chest pain, sweating, shortness of breath",
+  "symptoms_hi": "तेज सीने में दर्द, पसीना आना, सांस फूलना",
+
+  "causes_en": "Blocked coronary artery",
+  "causes_hi": "हृदय की धमनियों में ब्लॉकेज",
+
+  "medicines": ["Aspirin", "Clopidogrel", "Nitroglycerin"],
+
+  "treatment_en": "Emergency medical treatment",
+  "treatment_hi": "तुरंत चिकित्सा सहायता"
+},
+
+"heart failure": {
+  "symptoms_en": "Shortness of breath, fatigue, swelling in legs",
+  "symptoms_hi": "सांस फूलना, थकान, पैरों में सूजन",
+
+  "causes_en": "Weak heart muscles",
+  "causes_hi": "कमजोर हृदय की मांसपेशियां",
+
+  "medicines": ["Furosemide", "Enalapril", "Bisoprolol"],
+
+  "treatment_en": "Medication and lifestyle management",
+  "treatment_hi": "दवा और जीवनशैली प्रबंधन"
+},
+
+"chronic obstructive pulmonary disease": {
+  "symptoms_en": "Chronic cough, shortness of breath",
+  "symptoms_hi": "लगातार खांसी, सांस लेने में कठिनाई",
+
+  "causes_en": "Smoking, air pollution",
+  "causes_hi": "धूम्रपान, वायु प्रदूषण",
+
+  "medicines": ["Salbutamol", "Tiotropium"],
+
+  "treatment_en": "Inhalers and avoid smoking",
+  "treatment_hi": "इनहेलर का उपयोग और धूम्रपान से बचें"
+},
+
+"tuberculosis": {
+  "symptoms_en": "Persistent cough, fever, weight loss",
+  "symptoms_hi": "लगातार खांसी, बुखार, वजन कम होना",
+
+  "causes_en": "Mycobacterium tuberculosis infection",
+  "causes_hi": "माइकोबैक्टीरियम ट्यूबरकुलोसिस संक्रमण",
+
+  "medicines": ["Isoniazid", "Rifampicin", "Pyrazinamide"],
+
+  "treatment_en": "Long term antibiotic treatment",
+  "treatment_hi": "लंबे समय तक एंटीबायोटिक उपचार"
+},
+
+"bronchial asthma": {
+  "symptoms_en": "Wheezing, coughing, chest tightness",
+  "symptoms_hi": "सीटी जैसी आवाज, खांसी, छाती में जकड़न",
+
+  "causes_en": "Allergens, pollution",
+  "causes_hi": "एलर्जी, प्रदूषण",
+
+  "medicines": ["Salbutamol inhaler", "Budesonide"],
+
+  "treatment_en": "Use inhaler and avoid triggers",
+  "treatment_hi": "इनहेलर का उपयोग करें और ट्रिगर से बचें"
+},
+
+"sleep apnea": {
+  "symptoms_en": "Loud snoring, breathing pauses during sleep",
+  "symptoms_hi": "जोर से खर्राटे, नींद में सांस रुकना",
+
+  "causes_en": "Airway obstruction during sleep",
+  "causes_hi": "नींद के दौरान वायुमार्ग का अवरोध",
+
+  "medicines": ["Modafinil"],
+
+  "treatment_en": "Weight loss and CPAP therapy",
+  "treatment_hi": "वजन कम करना और CPAP थेरेपी"
+},
+
+"stroke": {
+  "symptoms_en": "Sudden weakness, speech difficulty",
+  "symptoms_hi": "अचानक कमजोरी, बोलने में कठिनाई",
+
+  "causes_en": "Blocked or burst blood vessel in brain",
+  "causes_hi": "मस्तिष्क की रक्त वाहिका में रुकावट या फटना",
+
+  "medicines": ["Aspirin", "Clopidogrel"],
+
+  "treatment_en": "Immediate medical care",
+  "treatment_hi": "तुरंत चिकित्सा सहायता"
+},
+
+"obesity": {
+  "symptoms_en": "Excess body weight, fatigue",
+  "symptoms_hi": "अधिक शरीर का वजन, थकान",
+
+  "causes_en": "High calorie diet, lack of exercise",
+  "causes_hi": "ज्यादा कैलोरी वाला भोजन, व्यायाम की कमी",
+
+  "medicines": ["Orlistat"],
+
+  "treatment_en": "Healthy diet and regular exercise",
+  "treatment_hi": "संतुलित आहार और नियमित व्यायाम"
+},
+
+"thyroid disorder": {
+  "symptoms_en": "Weight changes, fatigue, hair loss",
+  "symptoms_hi": "वजन में बदलाव, थकान, बाल झड़ना",
+
+  "causes_en": "Hormonal imbalance in thyroid gland",
+  "causes_hi": "थायरॉयड ग्रंथि में हार्मोन असंतुलन",
+
+  "medicines": ["Levothyroxine", "Methimazole"],
+
+  "treatment_en": "Hormone therapy and regular checkup",
+  "treatment_hi": "हार्मोन थेरेपी और नियमित जांच"
+},
+
+"vitamin d deficiency": {
+  "symptoms_en": "Bone pain, fatigue, weakness",
+  "symptoms_hi": "हड्डियों में दर्द, थकान, कमजोरी",
+
+  "causes_en": "Lack of sunlight and poor diet",
+  "causes_hi": "धूप की कमी और खराब आहार",
+
+  "medicines": ["Vitamin D3", "Calcium supplements"],
+
+  "treatment_en": "Sunlight exposure and supplements",
+  "treatment_hi": "धूप में समय बिताएं और सप्लीमेंट लें"
+},
+
+"back pain": {
+  "symptoms_en": "Pain in lower or upper back",
+  "symptoms_hi": "पीठ के निचले या ऊपरी हिस्से में दर्द",
+
+  "causes_en": "Muscle strain, poor posture",
+  "causes_hi": "मांसपेशियों में खिंचाव, गलत बैठने की आदत",
+
+  "medicines": ["Ibuprofen", "Diclofenac"],
+
+  "treatment_en": "Rest, physiotherapy and pain relief medicine",
+  "treatment_hi": "आराम, फिजियोथेरेपी और दर्द की दवा"
+},
+
+"eye infection": {
+  "symptoms_en": "Red eyes, itching, watery eyes",
+  "symptoms_hi": "आंखों में लालिमा, खुजली, पानी आना",
+
+  "causes_en": "Bacterial or viral infection",
+  "causes_hi": "बैक्टीरियल या वायरल संक्रमण",
+
+  "medicines": ["Ciprofloxacin eye drops", "Ofloxacin eye drops"],
+
+  "treatment_en": "Use antibiotic eye drops",
+  "treatment_hi": "एंटीबायोटिक आई ड्रॉप का उपयोग करें"
+},
+
+"conjunctivitis": {
+  "symptoms_en": "Red eyes, sticky discharge",
+  "symptoms_hi": "आंखों में लालिमा, चिपचिपा स्राव",
+
+  "causes_en": "Viral or bacterial infection",
+  "causes_hi": "वायरल या बैक्टीरियल संक्रमण",
+
+  "medicines": ["Ofloxacin eye drops", "Artificial tears"],
+
+  "treatment_en": "Eye drops and hygiene",
+  "treatment_hi": "आई ड्रॉप और साफ-सफाई"
+},
+
+"eczema": {
+  "symptoms_en": "Dry itchy skin, redness",
+  "symptoms_hi": "सूखी खुजली वाली त्वचा, लालिमा",
+
+  "causes_en": "Skin inflammation, allergies",
+  "causes_hi": "त्वचा की सूजन, एलर्जी",
+
+  "medicines": ["Hydrocortisone cream", "Moisturizers"],
+
+  "treatment_en": "Use moisturizers and medicated creams",
+  "treatment_hi": "मॉइस्चराइजर और दवा वाली क्रीम का उपयोग करें"
+},
+
+"fungal infection": {
+  "symptoms_en": "Itching, redness, skin rash",
+  "symptoms_hi": "खुजली, लालिमा, त्वचा पर चकत्ते",
+
+  "causes_en": "Fungal growth on skin",
+  "causes_hi": "त्वचा पर फंगस का बढ़ना",
+
+  "medicines": ["Clotrimazole", "Ketoconazole"],
+
+  "treatment_en": "Apply antifungal cream",
+  "treatment_hi": "एंटीफंगल क्रीम लगाएं"
+},
+
+"muscle pain": {
+  "symptoms_en": "Muscle soreness and stiffness",
+  "symptoms_hi": "मांसपेशियों में दर्द और जकड़न",
+
+  "causes_en": "Overuse, injury or strain",
+  "causes_hi": "अधिक उपयोग, चोट या खिंचाव",
+
+  "medicines": ["Ibuprofen", "Paracetamol"],
+
+  "treatment_en": "Rest and pain relief medicine",
+  "treatment_hi": "आराम करें और दर्द की दवा लें"
+},
+
+"motion sickness": {
+  "symptoms_en": "Nausea, dizziness during travel",
+  "symptoms_hi": "यात्रा के दौरान मतली और चक्कर",
+
+  "causes_en": "Inner ear balance disturbance",
+  "causes_hi": "भीतरी कान के संतुलन में गड़बड़ी",
+
+  "medicines": ["Dimenhydrinate", "Meclizine"],
+
+  "treatment_en": "Take motion sickness medicine before travel",
+  "treatment_hi": "यात्रा से पहले मोशन सिकनेस की दवा लें"
+},
+
+"heat stroke": {
+  "symptoms_en": "High body temperature, confusion, dizziness",
+  "symptoms_hi": "उच्च शरीर का तापमान, भ्रम, चक्कर",
+
+  "causes_en": "Prolonged exposure to high temperature",
+  "causes_hi": "ज्यादा गर्मी में लंबे समय तक रहना",
+
+  "medicines": ["ORS", "Paracetamol"],
+
+  "treatment_en": "Move to cool place and drink fluids",
+  "treatment_hi": "ठंडी जगह जाएं और तरल पदार्थ पिएं"
+}
+
+
+}

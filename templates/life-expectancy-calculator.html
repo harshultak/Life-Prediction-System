@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Healthify</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <style>
     body {
@@ -30,11 +31,63 @@
       position: relative;
       z-index: 1;
     }
+    
+    body {
+  background-image: url("{{ url_for('static', filename='medical-background.jpg.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(249, 250, 251, 0.85);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== CHATBOT TYPING DOTS ===== */
+
+.dot {
+  height:6px;
+  width:6px;
+  margin:0 2px;
+  background:#555;
+  border-radius:50%;
+  display:inline-block;
+  animation:bounce 1.4s infinite;
+}
+
+.dot:nth-child(2){
+  animation-delay:0.2s;
+}
+
+.dot:nth-child(3){
+  animation-delay:0.4s;
+}
+
+@keyframes bounce{
+  0%,80%,100%{transform:scale(0);}
+  40%{transform:scale(1);}
+}
+  
   </style>
 </head>
 <body class="p-6">
   <div class="content-wrapper">
-  <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+  <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 relative z-10">
     <div class="mb-4">
       <div class="flex items-center space-x-2">
         <iconify-icon icon="lucide:heart-pulse" class="text-red-500 text-xl"></iconify-icon>
@@ -46,6 +99,7 @@
 
     <form method="POST" action="/predict" id="lifeForm" class="space-y-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
         <!-- Personal Information -->
         <div class="space-y-4">
           <h2 class="text-lg font-medium">Personal Information</h2>
@@ -228,6 +282,85 @@
   </div>
   </div>
 
+  
+   <!-- ================= CHATBOT SECTION ================= -->
+  <div class="max-w-4xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6 relative z-10">
+  
+  <div class="flex items-center space-x-2 mb-2">
+    <iconify-icon icon="lucide:bot" class="text-blue-600 text-xl"></iconify-icon>
+    <h2 class="text-lg font-semibold">Health Chatbot</h2>
+  </div>
+
+  <p class="text-sm text-gray-500 mb-4">
+    Ask your health problem (Hindi / English)
+  </p>
+
+  <div id="chatBox"
+       class="h-64 overflow-y-auto bg-gray-50 border rounded-md p-3 text-sm mb-4">
+    <div class="text-gray-400">Chatbot ready…</div>
+  </div>
+
+  <!-- CHATGPT STYLE INPUT BAR -->
+<div class="flex items-center border rounded-lg px-2 py-1 bg-white">
+
+  <!-- IMAGE UPLOAD BUTTON -->
+<button
+  id="uploadBtn"
+  type="button"
+  class="flex items-center justify-center w-10 h-10 rounded-full
+         bg-gray-100 hover:bg-gray-200
+         text-gray-700 text-lg
+         transition">
+
+  <i class="bi bi-image-fill fs-4"></i>
+
+</button>
+
+
+  <!-- HIDDEN FILE INPUT -->
+  <input
+    type="file"
+    id="fileInput"
+    accept=".png,.jpg,.jpeg,.pdf"
+    hidden
+  />
+
+  <!-- TEXT INPUT -->
+  <input
+    id="chatInput"
+    type="text"
+    placeholder="Message Healthify…"
+    class="flex-1 outline-none px-2 py-2"
+  />
+
+  <!-- MIC BUTTON -->
+  <button
+    id="micBtn"
+    type="button"
+    class="flex items-center justify-center w-10 h-10 rounded-full 
+           bg-gray-100 hover:bg-gray-200 
+           text-gray-700 text-lg
+           transition">
+  
+    <i class="bi bi-mic-fill fs-4"></i>
+
+  </button>
+
+
+
+  <!-- SEND BUTTON -->
+  <button
+    onclick="sendMessage()"
+    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg ml-2">
+    Ask
+  </button>
+
+</div>
+
+
+</div>
+
+
 <script>
 // ================= BMI CALCULATION =================
 function calculateBMI() {
@@ -313,6 +446,187 @@ document.getElementById('lifeForm').addEventListener('submit', async (e) => {
     alert('Error: ' + error.message);
   }
 });
+
+
+ // ================= CHATBOT =================
+const chatBox = document.getElementById("chatBox");
+const chatInput = document.getElementById("chatInput");
+const micBtn = document.getElementById("micBtn");
+const uploadBtn = document.getElementById("uploadBtn");
+const fileInput = document.getElementById("fileInput");
+
+function showTyping() {
+  const typingDiv = document.createElement("div");
+  typingDiv.className = "mb-2 text-left";
+  typingDiv.id = "typingIndicator";
+
+  typingDiv.innerHTML = `
+    <div class="inline-block bg-gray-100 rounded-lg p-2 text-gray-600">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  `;
+
+  chatBox.appendChild(typingDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function removeTyping(){
+  const typing = document.getElementById("typingIndicator");
+  if(typing) typing.remove();
+}
+
+
+function typeText(element, text, speed = 15) {
+  let i = 0;
+
+  function typing() {
+    if (i < text.length) {
+
+      if(text.substring(i,i+4) === "<br>"){
+        element.innerHTML += "<br>";
+        i += 4;
+      }else{
+        element.innerHTML += text.charAt(i);
+        i++;
+      }
+
+      setTimeout(typing, speed);
+    }
+  }
+
+  typing();
+}
+
+
+
+// ------------------- SEND MESSAGE -------------------
+async function sendMessage(msg=null) {
+
+  const message = msg || chatInput.value.trim();
+  if (!message) return;
+
+  chatBox.innerHTML += `
+  <div class="mb-2 text-right">
+    <div class="inline-block bg-gray-200 rounded-lg p-2">${message}</div>
+  </div>`;
+
+  chatBox.scrollTop = chatBox.scrollHeight;
+  chatInput.value = "";
+
+  showTyping();
+
+  try {
+
+    const res = await fetch("/chatbot/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: message })
+    });
+
+    const data = await res.json();
+
+    removeTyping();
+
+    const botMessage = document.createElement("div");
+    botMessage.className = "mb-2 text-left";
+
+    const bubble = document.createElement("div");
+    bubble.className = "inline-block bg-gray-100 rounded-lg p-2 text-gray-800";
+
+    botMessage.appendChild(bubble);
+    chatBox.appendChild(botMessage);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    const text = data.reply.replace(/\n/g,"<br>");
+
+    typeText(bubble,text,15);
+
+  } catch {
+
+    removeTyping();
+
+    chatBox.innerHTML += `
+      <div class="mb-2 text-left">
+        <div class="inline-block bg-red-100 rounded-lg p-2 text-red-600">
+          Server error. Please try again.
+        </div>
+      </div>`;
+  }
+
+}
+
+
+// ------------------- ENTER KEY -------------------
+chatInput.addEventListener("keydown", function(event){
+  if(event.key === "Enter"){
+    event.preventDefault();
+    sendMessage();
+  }
+});
+
+// ------------------- MICROPHONE -------------------
+if (micBtn && (window.SpeechRecognition || window.webkitSpeechRecognition)) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-IN";
+  recognition.interimResults = false;
+  recognition.continuous = false;
+  let listening = false;
+
+  micBtn.addEventListener("click", () => {
+    if(!listening){
+      recognition.start(); listening = true;
+      micBtn.innerHTML = `<i class="bi bi-stop-circle-fill text-danger fs-4"></i>`;
+    } else {
+      recognition.stop(); listening = false;
+      micBtn.innerHTML = `<i class="bi bi-mic-fill fs-4"></i>`;
+    }
+  });
+
+  recognition.onresult = (e) => sendMessage(e.results[0][0].transcript);
+  recognition.onend = () => { listening=false; micBtn.innerHTML = `<i class="bi bi-mic-fill fs-4"></i>`; }
+}
+
+// ------------------- FILE UPLOAD + OCR -------------------
+uploadBtn.addEventListener("click", () => fileInput.click());
+
+fileInput.addEventListener("change", async () => {
+  if(fileInput.files.length===0) return;
+  const file = fileInput.files[0];
+  const formData = new FormData();
+  formData.append("file", file);
+
+  chatBox.innerHTML += `
+    <div class="mb-2 text-left">
+      <div class="inline-block bg-yellow-100 rounded-lg p-2 text-yellow-700">Processing file…</div>
+    </div>`;
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  try {
+    const res = await fetch("/chatbot/ocr", {
+      method: "POST",
+      body: formData
+    });
+    const data = await res.json();
+
+    chatBox.innerHTML += `
+      <div class="mb-2 text-left">
+        <div class="inline-block bg-blue-100 rounded-lg p-2 text-blue-700">${data.answer}</div>
+      </div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+  } catch {
+    chatBox.innerHTML += `
+      <div class="mb-2 text-left">
+        <div class="inline-block bg-red-100 rounded-lg p-2 text-red-600">OCR failed. Try again.</div>
+      </div>`;
+  }
+});
+
+
+
 </script>
 
 
