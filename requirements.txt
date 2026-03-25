@@ -10,4 +10,3 @@ torch
 joblib
 requests
 python-dotenv
-google-genai

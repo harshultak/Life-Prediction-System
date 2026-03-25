@@ -1,89 +1,107 @@
 import json
 import os
+import requests
 
-# Get current file directory
+# ================= LOCAL DATA =================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# Build path to health_data.json
 file_path = os.path.join(BASE_DIR, "health_data.json")
 
-# Load dataset
 with open(file_path, encoding="utf-8") as f:
     health_data = json.load(f)
 
+# ================= GROK API =================
+XAI_API_KEY = "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"
 
-def get_ai_response(user_message):
+def get_grok_response(user_message):
+    try:
+        url = "https://api.x.ai/v1/chat/completions"
 
-    user_message = user_message.lower().strip()
+        headers = {
+            "Authorization": f"Bearer {XAI_API_KEY}",
+            "Content-Type": "application/json"
+        }
 
-    # -------------------------
-    # 1️⃣ Disease search
-    # -------------------------
+        payload = {
+            "model": "grok-beta",
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are a friendly doctor. Talk like a real human. Give simple, natural and helpful medical advice."
+                },
+                {
+                    "role": "user",
+                    "content": user_message
+                }
+            ]
+        }
+
+        response = requests.post(url, headers=headers, json=payload)
+
+        if response.status_code == 200:
+            result = response.json()
+            return result["choices"][0]["message"]["content"]
+
+        return None
+
+    except Exception as e:
+        print("GROK ERROR:", e)
+        return None
+
+
+# ================= LOCAL FALLBACK =================
+def get_local_response(user_message):
+
     for disease in health_data:
 
         info = health_data[disease]
 
         if disease in user_message:
 
-            symptoms_en = info.get('symptoms_en', 'No data available')
-            symptoms_hi = info.get('symptoms_hi', '')
-
-            treatment_en = info.get('treatment_en', 'No data available')
-            treatment_hi = info.get('treatment_hi', '')
-
-            doctor_en = info.get('doctor_en', 'Consult a doctor if symptoms worsen')
-            doctor_hi = info.get('doctor_hi', '')
-
+            symptoms = info.get('symptoms_en', '')
+            treatment = info.get('treatment_en', '')
             medicines = ", ".join(info.get('medicines', []))
 
-            response = f"""
-Disease: {disease}
+            return f"""
+You may have {disease}.
 
 Symptoms:
-{symptoms_en}
-{symptoms_hi}
+{symptoms}
 
 Medicines:
 {medicines}
 
 Treatment:
-{treatment_en}
-{treatment_hi}
+{treatment}
 
-Doctor Advice:
-{doctor_en}
-{doctor_hi}
-"""
+If condition worsens, consult a doctor.
+""".strip()
 
-            return response.strip()
+    return None
+
+
+# ================= MAIN FUNCTION =================
+def get_ai_response(user_message):
+
+    user_message = user_message.lower().strip()
 
     # -------------------------
-    # 2️⃣ Medicine search
+    # GROK FIRST
     # -------------------------
-    for disease in health_data:
+    ai_reply = get_grok_response(user_message)
 
-        info = health_data[disease]
+    if ai_reply:
+        return ai_reply
 
-        medicines = info.get("medicines", [])
+    # -------------------------
+    # LOCAL FALLBACK
+    # -------------------------
+    local_reply = get_local_response(user_message)
 
-        for med in medicines:
+    if local_reply:
+        return local_reply
 
-            if med.lower() in user_message:
+    # -------------------------
+    # FINAL FALLBACK
+    # -------------------------
+    return "I'm not sure. Please consult a doctor."
 
-                symptoms_en = info.get('symptoms_en', '')
-                symptoms_hi = info.get('symptoms_hi', '')
-
-                response = f"""
-Medicine: {med}
-
-Used For Disease:
-{disease}
-
-Symptoms:
-{symptoms_en}
-{symptoms_hi}
-"""
-
-                return response.strip()
-
-    return "Please ask a health related question."
