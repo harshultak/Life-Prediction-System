@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@
       background-repeat: no-repeat;
       position: relative;
     }
+
     body::before {
       content: '';
       position: fixed;
@@ -27,440 +29,466 @@
       z-index: 0;
       pointer-events: none;
     }
+
     .content-wrapper {
       position: relative;
       z-index: 1;
     }
-    
+
     body {
-  background-image: url("{{ url_for('static', filename='medical-background.jpg.jpg') }}");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  position: relative;
-}
+      background-image: url("{{ url_for('static', filename='medical-background.jpg.jpg') }}");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      position: relative;
+    }
 
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(249, 250, 251, 0.85);
-  z-index: 0;
-  pointer-events: none;
-}
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(249, 250, 251, 0.85);
+      z-index: 0;
+      pointer-events: none;
+    }
 
-.content-wrapper {
-  position: relative;
-  z-index: 1;
-}
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+    }
 
-/* ===== CHATBOT TYPING DOTS ===== */
+    /* ===== CHATBOT TYPING DOTS ===== */
 
-.dot {
-  height:6px;
-  width:6px;
-  margin:0 2px;
-  background:#555;
-  border-radius:50%;
-  display:inline-block;
-  animation:bounce 1.4s infinite;
-}
+    .dot {
+      height: 6px;
+      width: 6px;
+      margin: 0 2px;
+      background: #555;
+      border-radius: 50%;
+      display: inline-block;
+      animation: bounce 1.4s infinite;
+    }
 
-.dot:nth-child(2){
-  animation-delay:0.2s;
-}
+    .dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
 
-.dot:nth-child(3){
-  animation-delay:0.4s;
-}
+    .dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
 
-@keyframes bounce{
-  0%,80%,100%{transform:scale(0);}
-  40%{transform:scale(1);}
-}
-  
+    @keyframes bounce {
+
+      0%,
+      80%,
+      100% {
+        transform: scale(0);
+      }
+
+      40% {
+        transform: scale(1);
+      }
+    }
   </style>
 </head>
+
 <body class="p-6">
   <div class="content-wrapper">
-  <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 relative z-10">
-    <div class="mb-4">
-      <div class="flex items-center space-x-2">
-        <iconify-icon icon="lucide:heart-pulse" class="text-red-500 text-xl"></iconify-icon>
-        <h1 class="text-xl font-semibold">Healthify</h1>
-      </div>
-      <p class="text-sm text-gray-500">Enter your medical and economic information to estimate life expectancy</p>
-    </div>
-    <hr class="my-4">
+    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 relative z-10">
+      <!-- LOGIN SECTION -->
+      <div id="loginSection" class="mb-6 flex flex-col justify-center items-center" style="height:60vh;">
+        <h2 class="text-lg font-semibold mb-2">Login</h2>
 
-    <form method="POST" action="/predict" id="lifeForm" class="space-y-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      
-        <!-- Personal Information -->
-        <div class="space-y-4">
-          <h2 class="text-lg font-medium">Personal Information</h2>
-          <div>
-            <label for="age" class="block text-sm font-medium">Age</label>
-            <input id="age" name="age" type="number" min="1" max="120" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-          </div>
-          <div>
-            <label for="gender" class="block text-sm font-medium">Gender</label>
-            <select id="gender" name="gender" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-              <option value="">Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </div>
-          <div>
-            <label for="country" class="block text-sm font-medium">Country/Region</label>
-            <select id="country" name="country" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-              <option value="" disabled selected hidden>Select a value</option>
-              {% for country in countries %}
+        <input id="email" type="email" placeholder="Enter Email"
+          class="w-full max-w-md border border-gray-300 p-2 mb-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+        <input id="password" type="password" placeholder="Enter Password"
+          class="w-full max-w-md border border-gray-300 p-2 mb-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+        <button onclick="fakeLogin()"
+          class="w-full max-w-md bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition">
+          Login
+        </button>
+
+      </div>
+
+      <div class="mb-4">
+        <div class="flex items-center space-x-2">
+          <iconify-icon icon="lucide:heart-pulse" class="text-red-500 text-xl"></iconify-icon>
+          <h1 class="text-xl font-semibold">Healthify</h1>
+        </div>
+        <p class="text-sm text-gray-500">Enter your medical and economic information to estimate life expectancy</p>
+      </div>
+      <hr class="my-4">
+
+      <form method="POST" action="/predict" id="lifeForm" class="space-y-6" style="display:none;">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <!-- Personal Information -->
+          <div class="space-y-4">
+            <h2 class="text-lg font-medium">Personal Information</h2>
+            <div>
+              <label for="age" class="block text-sm font-medium">Age</label>
+              <input id="age" name="age" type="number" min="1" max="120"
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            </div>
+            <div>
+              <label for="gender" class="block text-sm font-medium">Gender</label>
+              <select id="gender" name="gender" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div>
+              <label for="country" class="block text-sm font-medium">Country/Region</label>
+              <select id="country" name="country" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                required>
+                <option value="" disabled selected hidden>Select a value</option>
+                {% for country in countries %}
                 <option value="{{ country }}">{{ country }}</option>
-              {% endfor %}
-            </select>
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label for="height" class="block text-sm font-medium">Height (cm)</label>
-              <input id="height" name="height" type="number" min="50" max="250" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="height" class="block text-sm font-medium">Height (cm)</label>
+                <input id="height" name="height" type="number" min="50" max="250"
+                  class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+              </div>
+              <div>
+                <label for="weight" class="block text-sm font-medium">Weight (kg)</label>
+                <input id="weight" name="weight" type="number" min="10" max="300"
+                  class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+              </div>
             </div>
             <div>
-              <label for="weight" class="block text-sm font-medium">Weight (kg)</label>
-              <input id="weight" name="weight" type="number" min="10" max="300" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+              <label for="bmi" class="block text-sm font-medium">BMI</label>
+              <input id="bmi" name="bmi" type="number" min="2" max="204" step="0.1"
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100" readonly required>
+            </div>
+            <button type="button" onclick="calculateBMI()"
+              class="w-full bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md">Calculate BMI</button>
+          </div>
+
+          <!-- Health Factors -->
+          <div class="space-y-4">
+            <h2 class="text-lg font-medium">Health Factors</h2>
+            <div>
+              <label for="exercise" class="block text-sm font-medium">Exercise Hours per Week</label>
+              <input id="exercise" name="exercise" type="number" min="0" max="168"
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            </div>
+            <div>
+              <label for="diet" class="block text-sm font-medium">Diet Type</label>
+              <select id="diet" name="diet" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+                <option value="">Select Diet Type</option>
+                <option value="Healthy">Healthy</option>
+                <option value="Balanced">Balanced</option>
+                <option value="Unhealthy">Unhealthy</option>
+              </select>
+            </div>
+            <div>
+              <label for="medical" class="block text-sm font-medium">Medical History</label>
+              <select id="medical" name="medical" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                required>
+                <option value="">Select Medical History</option>
+                <option value="Fit">Fit</option>
+                <option value="Cancer">Cancer</option>
+                <option value="Diabetes">Diabetes</option>
+                <option value="Asthma">Asthma</option>
+                <option value="HIV/AIDS">HIV/AIDS</option>
+                <option value="Heart Disease">Heart Disease</option>
+                <option value="Kidney & Liver Diseases">Kidney & Liver Diseases</option>
+              </select>
+            </div>
+            <div>
+              <label for="stress" class="block text-sm font-medium">Work Stress Level</label>
+              <select id="stress" name="stress" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                required>
+                <option value="">Select Work Stress Level</option>
+                <option value="Low">Low</option>
+                <option value="Moderate">Moderate</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+            <div>
+              <label for="smoking" class="block text-sm font-medium">Smoking Level</label>
+              <select id="smoking" name="smoking" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                required>
+                <option value="">Select Smoking Level</option>
+                <option value="Never">Never</option>
+                <option value="Low">Low</option>
+                <option value="Moderate">Moderate</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+            <div>
+              <label for="alcohol" class="block text-sm font-medium">Alcohol Consumption</label>
+              <select id="alcohol" name="alcohol" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                required>
+                <option value="">Select Alcohol Consumption</option>
+                <option value="Never">Never</option>
+                <option value="Low">Low</option>
+                <option value="Moderate">Moderate</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+            <div>
+              <label for="social" class="block text-sm font-medium">Social Life Level</label>
+              <select id="social" name="social" class="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                required>
+                <option value="">Select Social Life Level</option>
+                <option value="Low">Low</option>
+                <option value="Moderate">Moderate</option>
+                <option value="High">High</option>
+              </select>
             </div>
           </div>
-          <div>
-            <label for="bmi" class="block text-sm font-medium">BMI</label>
-            <input id="bmi" name="bmi" type="number" min="2" max="204" step="0.1" class="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100" readonly required>
-          </div>
-          <button type="button" onclick="calculateBMI()" class="w-full bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md">Calculate BMI</button>
         </div>
 
-        <!-- Health Factors -->
-        <div class="space-y-4">
-          <h2 class="text-lg font-medium">Health Factors</h2>
-          <div>
-            <label for="exercise" class="block text-sm font-medium">Exercise Hours per Week</label>
-            <input id="exercise" name="exercise" type="number" min="0" max="168" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-          </div>
-          <div>
-            <label for="diet" class="block text-sm font-medium">Diet Type</label>
-            <select id="diet" name="diet" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-              <option value="">Select Diet Type</option>
-              <option value="Healthy">Healthy</option>
-              <option value="Balanced">Balanced</option>
-              <option value="Unhealthy">Unhealthy</option>
-            </select>
-          </div>
-          <div>
-            <label for="medical" class="block text-sm font-medium">Medical History</label>
-            <select id="medical" name="medical" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-              <option value="">Select Medical History</option>
-              <option value="Fit">Fit</option>
-              <option value="Cancer">Cancer</option>
-              <option value="Diabetes">Diabetes</option>
-              <option value="Asthma">Asthma</option>
-              <option value="HIV/AIDS">HIV/AIDS</option>
-              <option value="Heart Disease">Heart Disease</option>
-              <option value="Kidney & Liver Diseases">Kidney & Liver Diseases</option>
-            </select>
-          </div>
-          <div>
-            <label for="stress" class="block text-sm font-medium">Work Stress Level</label>
-            <select id="stress" name="stress" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-              <option value="">Select Work Stress Level</option>
-              <option value="Low">Low</option>
-              <option value="Moderate">Moderate</option>
-              <option value="High">High</option>
-            </select>
-          </div>
-          <div>
-            <label for="smoking" class="block text-sm font-medium">Smoking Level</label>
-            <select id="smoking" name="smoking" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-              <option value="">Select Smoking Level</option>
-              <option value="Never">Never</option>
-              <option value="Low">Low</option>
-              <option value="Moderate">Moderate</option>
-              <option value="High">High</option>
-            </select>
-          </div>
-          <div>
-            <label for="alcohol" class="block text-sm font-medium">Alcohol Consumption</label>
-            <select id="alcohol" name="alcohol" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-              <option value="">Select Alcohol Consumption</option>
-              <option value="Never">Never</option>
-              <option value="Low">Low</option>
-              <option value="Moderate">Moderate</option>
-              <option value="High">High</option>
-            </select>
-          </div>
-          <div>
-            <label for="social" class="block text-sm font-medium">Social Life Level</label>
-            <select id="social" name="social" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-              <option value="">Select Social Life Level</option>
-              <option value="Low">Low</option>
-              <option value="Moderate">Moderate</option>
-              <option value="High">High</option>
-            </select>
+        <!-- Additional Health Metrics -->
+        <div class="space-y-4 mt-6">
+          <h2 class="text-lg font-medium">Additional Health Metrics</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="sleep" class="block text-sm font-medium">Sleep Hours (1-24)</label>
+              <input id="sleep" name="sleep" type="number" min="1" max="24"
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            </div>
+            <div>
+              <label for="heartRate" class="block text-sm font-medium">Heart Rate (bpm)</label>
+              <input id="heartRate" name="heartRate" type="number" min="27" max="480" step="0.1"
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            </div>
+            <div>
+              <label for="spo2" class="block text-sm font-medium">SpO₂ Level (%)</label>
+              <input id="spo2" name="spo2" type="number" min="6" max="100" step="0.1"
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            </div>
+            <div>
+              <label for="temperature" class="block text-sm font-medium">Body Temperature (°C)</label>
+              <input id="temperature" name="temperature" type="number" min="13" max="50" step="0.1"
+                class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Additional Health Metrics -->
-      <div class="space-y-4 mt-6">
-        <h2 class="text-lg font-medium">Additional Health Metrics</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label for="sleep" class="block text-sm font-medium">Sleep Hours (1-24)</label>
-            <input id="sleep" name="sleep" type="number" min="1" max="24" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-          </div>
-          <div>
-            <label for="heartRate" class="block text-sm font-medium">Heart Rate (bpm)</label>
-            <input id="heartRate" name="heartRate" type="number" min="27" max="480" step="0.1" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-          </div>
-          <div>
-            <label for="spo2" class="block text-sm font-medium">SpO₂ Level (%)</label>
-            <input id="spo2" name="spo2" type="number" min="6" max="100" step="0.1" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
-          </div>
-          <div>
-            <label for="temperature" class="block text-sm font-medium">Body Temperature (°C)</label>
-            <input id="temperature" name="temperature" type="number" min="13" max="50" step="0.1" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+        <!-- Socio-Economic Factors -->
+        <div class="space-y-4 mt-6">
+          <h2 class="text-lg font-medium">Socio-Economic Factors</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="income" class="block text-sm font-medium">Income Level</label>
+              <select name="income" id="income" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                <option value="">Select income level</option>
+                <option value="very_low">Very low</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="very_high">Very high</option>
+              </select>
+            </div>
+            <div>
+              <label for="education" class="block text-sm font-medium">Education Level</label>
+              <select id="education" name="education" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
+                <option value="">Select education level</option>
+                <option value="4">Primary education</option>
+                <option value="9">Lower secondary education</option>
+                <option value="11">Upper secondary education</option>
+                <option value="13">College</option>
+                <option value="15">Higher education (Bachelor's)</option>
+                <option value="16.5">Master's degree</option>
+                <option value="18.5">Postgraduate (PhD)</option>
+              </select>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Socio-Economic Factors -->
-      <div class="space-y-4 mt-6">
-        <h2 class="text-lg font-medium">Socio-Economic Factors</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label for="income" class="block text-sm font-medium">Income Level</label>
-            <select name="income" id="income" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-              <option value="">Select income level</option>
-              <option value="very_low">Very low</option>
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-              <option value="very_high">Very high</option>
-            </select>      
-          </div>
-          <div>
-            <label for="education" class="block text-sm font-medium">Education Level</label>
-            <select id="education" name="education" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-              <option value="">Select education level</option>
-              <option value="4">Primary education</option>
-              <option value="9">Lower secondary education</option>
-              <option value="11">Upper secondary education</option>
-              <option value="13">College</option>
-              <option value="15">Higher education (Bachelor's)</option>
-              <option value="16.5">Master's degree</option>
-              <option value="18.5">Postgraduate (PhD)</option>
-            </select>
-          </div>
+        <div class="flex justify-end space-x-4 mt-6">
+          <button type="button" onclick="populateFormWithFirebaseData()"
+            class="bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded">Fetch My Health Stats</button>
+          <button type="reset" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded">Clear</button>
+          <button type="submit" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded">Predict</button>
         </div>
-      </div>
+      </form>
+      <div id="result"></div>
 
-      <div class="flex justify-end space-x-4 mt-6">
-        <button type="button" onclick="populateFormWithFirebaseData()" class="bg-purple-600 text-white hover:bg-purple-700 px-4 py-2 rounded">Fetch My Health Stats</button>
-        <button type="reset" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded">Clear</button>
-        <button type="submit" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded">Predict</button>
+      {% if result %}
+      <div id="resultSection" class="mt-6 p-4 bg-green-100 rounde">
+        <h2 class="text-lg font-semibold">Predicted Life Expectancy:</h2>
+        <p id="resultText" class="text-2xl text-blue-600 font-bold">{{ result }} years</p>
       </div>
-    </form>
-    <div id="result"></div>
-
-    {% if result %}
-    <div id="resultSection" class="mt-6 p-4 bg-green-100 rounde">
-      <h2 class="text-lg font-semibold">Predicted Life Expectancy:</h2>
-      <p id="resultText" class="text-2xl text-blue-600 font-bold">{{ result }} years</p>
+      {% endif %}
     </div>
-    {% endif %}
-  </div>
   </div>
 
-  
-   <!-- ================= CHATBOT SECTION ================= -->
-  <div class="max-w-4xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6 relative z-10">
-  
-  <div class="flex items-center space-x-2 mb-2">
-    <iconify-icon icon="lucide:bot" class="text-blue-600 text-xl"></iconify-icon>
-    <h2 class="text-lg font-semibold">Health Chatbot</h2>
-  </div>
 
-  <p class="text-sm text-gray-500 mb-4">
-    Ask your health problem (Hindi / English)
-  </p>
+  <!-- ================= CHATBOT SECTION ================= -->
+  <div id="chatSection" class="max-w-4xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6 relative z-10"
+    style="display:none;">
 
-  <div id="chatBox"
-       class="h-64 overflow-y-auto bg-gray-50 border rounded-md p-3 text-sm mb-4">
-    <div class="text-gray-400">Chatbot ready…</div>
-  </div>
+    <div class="flex items-center space-x-2 mb-2">
+      <iconify-icon icon="lucide:bot" class="text-blue-600 text-xl"></iconify-icon>
+      <h2 class="text-lg font-semibold">Health Chatbot</h2>
+    </div>
 
-  <!-- CHATGPT STYLE INPUT BAR -->
-<div class="flex items-center border rounded-lg px-2 py-1 bg-white">
+    <p class="text-sm text-gray-500 mb-4">
+      Ask your health problem (Hindi / English)
+    </p>
 
-  <!-- IMAGE UPLOAD BUTTON -->
-<button
-  id="uploadBtn"
-  type="button"
-  class="flex items-center justify-center w-10 h-10 rounded-full
+    <div id="chatBox" class="h-64 overflow-y-auto bg-gray-50 border rounded-md p-3 text-sm mb-4">
+      <div class="text-gray-400">Chatbot ready…</div>
+    </div>
+
+    <!-- CHATGPT STYLE INPUT BAR -->
+    <div class="flex items-center border rounded-lg px-2 py-1 bg-white">
+
+      <!-- IMAGE UPLOAD BUTTON -->
+      <button id="uploadBtn" type="button" class="flex items-center justify-center w-10 h-10 rounded-full
          bg-gray-100 hover:bg-gray-200
          text-gray-700 text-lg
          transition">
 
-  <i class="bi bi-image-fill fs-4"></i>
+        <i class="bi bi-image-fill fs-4"></i>
 
-</button>
+      </button>
 
 
-  <!-- HIDDEN FILE INPUT -->
-  <input
-    type="file"
-    id="fileInput"
-    accept=".png,.jpg,.jpeg,.pdf"
-    hidden
-  />
+      <!-- HIDDEN FILE INPUT -->
+      <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.pdf" hidden />
 
-  <!-- TEXT INPUT -->
-  <input
-    id="chatInput"
-    type="text"
-    placeholder="Message Healthify…"
-    class="flex-1 outline-none px-2 py-2"
-  />
+      <!-- TEXT INPUT -->
+      <input id="chatInput" type="text" placeholder="Message Healthify…" class="flex-1 outline-none px-2 py-2" />
 
-  <!-- MIC BUTTON -->
-  <button
-    id="micBtn"
-    type="button"
-    class="flex items-center justify-center w-10 h-10 rounded-full 
+      <!-- MIC BUTTON -->
+      <button id="micBtn" type="button" class="flex items-center justify-center w-10 h-10 rounded-full 
            bg-gray-100 hover:bg-gray-200 
            text-gray-700 text-lg
            transition">
-  
-    <i class="bi bi-mic-fill fs-4"></i>
 
-  </button>
+        <i class="bi bi-mic-fill fs-4"></i>
 
-
-
-  <!-- SEND BUTTON -->
-  <button
-    onclick="sendMessage()"
-    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg ml-2">
-    Ask
-  </button>
-
-</div>
+      </button>
 
 
-</div>
+
+      <!-- SEND BUTTON -->
+      <button onclick="sendMessage()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg ml-2">
+        Ask
+      </button>
+
+    </div>
 
 
-<script>
-// ================= BMI CALCULATION =================
-function calculateBMI() {
-  const height = parseFloat(document.getElementById('height').value);
-  const weight = parseFloat(document.getElementById('weight').value);
+  </div>
 
-  if (height > 0 && weight > 0) {
-    const bmi = weight / Math.pow(height / 100, 2);
-    document.getElementById('bmi').value = bmi.toFixed(2);
-  }
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('height').addEventListener('input', calculateBMI);
-  document.getElementById('weight').addEventListener('input', calculateBMI);
-});
+  <script>
+    // ================= BMI CALCULATION =================
+    function calculateBMI() {
+      const height = parseFloat(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
 
-// ================= FORM MAPPING =================
-function mapFormDataToBackend(form) {
-  const smokingMap = {
-    'Never': 'none',
-    'Low': 'light',
-    'Moderate': 'regular',
-    'High': 'regular'
-  };
+      if (height > 0 && weight > 0) {
+        const bmi = weight / Math.pow(height / 100, 2);
+        document.getElementById('bmi').value = bmi.toFixed(2);
+      }
+    }
 
-  const alcoholMap = {
-    'Never': 0,
-    'Low': 2,
-    'Moderate': 7,
-    'High': 15
-  };
-
-  return {
-    age: parseInt(form.age.value),
-    country: form.country.value,
-    height: parseFloat(form.height.value),
-    weight: parseFloat(form.weight.value),
-    smoking: smokingMap[form.smoking.value] || 'none',
-    alcohol: alcoholMap[form.alcohol.value] || 0,
-
-    // 🔒 SAFE DEFAULTS (VERY IMPORTANT)
-    education: parseFloat(form.education.value) || 10,
-    income: form.income.value || 'medium'
-  };
-}
-
-// ================= SUBMIT HANDLER =================
-document.getElementById('lifeForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const form = e.target;
-  const backendData = mapFormDataToBackend(form);
-
-  try {
-    const response = await fetch('/predict', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(backendData)
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('height').addEventListener('input', calculateBMI);
+      document.getElementById('weight').addEventListener('input', calculateBMI);
     });
 
-    if (!response.ok) {
-      throw new Error('Prediction failed');
+    // ================= FORM MAPPING =================
+    function mapFormDataToBackend(form) {
+      const smokingMap = {
+        'Never': 'none',
+        'Low': 'light',
+        'Moderate': 'regular',
+        'High': 'regular'
+      };
+
+      const alcoholMap = {
+        'Never': 0,
+        'Low': 2,
+        'Moderate': 7,
+        'High': 15
+      };
+
+      return {
+        age: parseInt(form.age.value),
+        country: form.country.value,
+        height: parseFloat(form.height.value),
+        weight: parseFloat(form.weight.value),
+        smoking: smokingMap[form.smoking.value] || 'none',
+        alcohol: alcoholMap[form.alcohol.value] || 0,
+
+        // 🔒 SAFE DEFAULTS (VERY IMPORTANT)
+        education: parseFloat(form.education.value) || 10,
+        income: form.income.value || 'medium'
+      };
     }
 
-    const result = await response.json();
+    // ================= SUBMIT HANDLER =================
+    document.getElementById('lifeForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-    // 🔒 STRONG VALIDATION
-    const life = Number(result.result);
-    if (isNaN(life)) {
-      alert('Prediction failed. Please fill all fields correctly.');
-      return;
-    }
+      const form = e.target;
+      const backendData = mapFormDataToBackend(form);
 
-    // ✅ REDIRECT TO RESULT PAGE
-    const params = new URLSearchParams();
-    params.append('predicted_life_expectancy', life);
-    params.append('age', backendData.age);
+      try {
+        const response = await fetch('/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(backendData)
+        });
 
-    window.location.href = `/result?${params.toString()}`;
+        if (!response.ok) {
+          throw new Error('Prediction failed');
+        }
 
-  } catch (error) {
-    alert('Error: ' + error.message);
-  }
-});
+        const result = await response.json();
+
+        // 🔒 STRONG VALIDATION
+        const life = Number(result.result);
+        if (isNaN(life)) {
+          alert('Prediction failed. Please fill all fields correctly.');
+          return;
+        }
+
+        // ✅ REDIRECT TO RESULT PAGE
+        const params = new URLSearchParams();
+        params.append('predicted_life_expectancy', life);
+        params.append('age', backendData.age);
+
+        window.location.href = `/result?${params.toString()}`;
+
+      } catch (error) {
+        alert('Error: ' + error.message);
+      }
+    });
 
 
- // ================= CHATBOT =================
-const chatBox = document.getElementById("chatBox");
-const chatInput = document.getElementById("chatInput");
-const micBtn = document.getElementById("micBtn");
-const uploadBtn = document.getElementById("uploadBtn");
-const fileInput = document.getElementById("fileInput");
+    // ================= CHATBOT =================
+    const chatBox = document.getElementById("chatBox");
+    const chatInput = document.getElementById("chatInput");
+    const micBtn = document.getElementById("micBtn");
+    const uploadBtn = document.getElementById("uploadBtn");
+    const fileInput = document.getElementById("fileInput");
 
-function showTyping() {
-  const typingDiv = document.createElement("div");
-  typingDiv.className = "mb-2 text-left";
-  typingDiv.id = "typingIndicator";
+    function showTyping() {
+      const typingDiv = document.createElement("div");
+      typingDiv.className = "mb-2 text-left";
+      typingDiv.id = "typingIndicator";
 
-  typingDiv.innerHTML = `
+      typingDiv.innerHTML = `
     <div class="inline-block bg-gray-100 rounded-lg p-2 text-gray-600">
       <span class="dot"></span>
       <span class="dot"></span>
@@ -468,168 +496,252 @@ function showTyping() {
     </div>
   `;
 
-  chatBox.appendChild(typingDiv);
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
+      chatBox.appendChild(typingDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
 
-function removeTyping(){
-  const typing = document.getElementById("typingIndicator");
-  if(typing) typing.remove();
-}
+    function removeTyping() {
+      const typing = document.getElementById("typingIndicator");
+      if (typing) typing.remove();
+    }
 
 
-function typeText(element, text, speed = 15) {
-  let i = 0;
+    function typeText(element, text, speed = 15) {
+      let i = 0;
 
-  function typing() {
-    if (i < text.length) {
+      function typing() {
+        if (i < text.length) {
 
-      if(text.substring(i,i+4) === "<br>"){
-        element.innerHTML += "<br>";
-        i += 4;
-      }else{
-        element.innerHTML += text.charAt(i);
-        i++;
+          if (text.substring(i, i + 4) === "<br>") {
+            element.innerHTML += "<br>";
+            i += 4;
+          } else {
+            element.innerHTML += text.charAt(i);
+            i++;
+          }
+
+          setTimeout(typing, speed);
+        }
       }
 
-      setTimeout(typing, speed);
+      typing();
     }
-  }
-
-  typing();
-}
 
 
 
-// ------------------- SEND MESSAGE -------------------
-async function sendMessage(msg=null) {
+    // ------------------- SEND MESSAGE -------------------
+    async function sendMessage(msg = null) {
 
-  const message = msg || chatInput.value.trim();
-  if (!message) return;
+      const message = msg || chatInput.value.trim();
+      if (!message) return;
 
-  chatBox.innerHTML += `
+      // 🚨 EMERGENCY CHECK
+      if (message.toLowerCase().includes("emergency")) {
+        handleEmergency();
+        return;
+      }
+
+      chatBox.innerHTML += `
   <div class="mb-2 text-right">
     <div class="inline-block bg-gray-200 rounded-lg p-2">${message}</div>
   </div>`;
 
-  chatBox.scrollTop = chatBox.scrollHeight;
-  chatInput.value = "";
+      chatBox.scrollTop = chatBox.scrollHeight;
+      chatInput.value = "";
 
-  showTyping();
+      showTyping();
 
-  try {
+      try {
 
-    const res = await fetch("/chatbot/ask", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: message })
-    });
+        const res = await fetch("/chatbot/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: message })
+        });
 
-    const data = await res.json();
+        const data = await res.json();
 
-    removeTyping();
+        removeTyping();
 
-    const botMessage = document.createElement("div");
-    botMessage.className = "mb-2 text-left";
+        const botMessage = document.createElement("div");
+        botMessage.className = "mb-2 text-left";
 
-    const bubble = document.createElement("div");
-    bubble.className = "inline-block bg-gray-100 rounded-lg p-2 text-gray-800";
+        const bubble = document.createElement("div");
+        bubble.className = "inline-block bg-gray-100 rounded-lg p-2 text-gray-800";
 
-    botMessage.appendChild(bubble);
-    chatBox.appendChild(botMessage);
+        botMessage.appendChild(bubble);
+        chatBox.appendChild(botMessage);
 
-    chatBox.scrollTop = chatBox.scrollHeight;
+        chatBox.scrollTop = chatBox.scrollHeight;
 
-    const text = data.reply.replace(/\n/g,"<br>");
+        const text = data.reply.replace(/\n/g, "<br>");
 
-    typeText(bubble,text,15);
+        typeText(bubble, text, 15);
 
-  } catch {
+      } catch {
 
-    removeTyping();
+        removeTyping();
 
-    chatBox.innerHTML += `
+        chatBox.innerHTML += `
       <div class="mb-2 text-left">
         <div class="inline-block bg-red-100 rounded-lg p-2 text-red-600">
           Server error. Please try again.
         </div>
       </div>`;
-  }
+      }
 
-}
-
-
-// ------------------- ENTER KEY -------------------
-chatInput.addEventListener("keydown", function(event){
-  if(event.key === "Enter"){
-    event.preventDefault();
-    sendMessage();
-  }
-});
-
-// ------------------- MICROPHONE -------------------
-if (micBtn && (window.SpeechRecognition || window.webkitSpeechRecognition)) {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const recognition = new SpeechRecognition();
-  recognition.lang = "en-IN";
-  recognition.interimResults = false;
-  recognition.continuous = false;
-  let listening = false;
-
-  micBtn.addEventListener("click", () => {
-    if(!listening){
-      recognition.start(); listening = true;
-      micBtn.innerHTML = `<i class="bi bi-stop-circle-fill text-danger fs-4"></i>`;
-    } else {
-      recognition.stop(); listening = false;
-      micBtn.innerHTML = `<i class="bi bi-mic-fill fs-4"></i>`;
     }
-  });
 
-  recognition.onresult = (e) => sendMessage(e.results[0][0].transcript);
-  recognition.onend = () => { listening=false; micBtn.innerHTML = `<i class="bi bi-mic-fill fs-4"></i>`; }
-}
 
-// ------------------- FILE UPLOAD + OCR -------------------
-uploadBtn.addEventListener("click", () => fileInput.click());
+    // ------------------- EMERGENCY FUNCTION -------------------
+    function handleEmergency() {
 
-fileInput.addEventListener("change", async () => {
-  if(fileInput.files.length===0) return;
-  const file = fileInput.files[0];
-  const formData = new FormData();
-  formData.append("file", file);
+      if (navigator.geolocation) {
 
-  chatBox.innerHTML += `
+        navigator.geolocation.getCurrentPosition((position) => {
+
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+
+          const locationLink = `https://www.google.com/maps?q=${lat},${lon}`;
+
+          const phone = "919468696350";
+
+          const msg = `🚨 EMERGENCY!\nI need help.\nMy location: ${locationLink}`;
+
+          const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+
+          // ✅ WhatsApp open
+          window.open(whatsappURL, "_blank");
+
+          // ✅ Chat me show
+          chatBox.innerHTML += `
+        <div class="mb-2 text-left">
+          <div class="bg-red-100 text-red-700 p-2 rounded">
+            🚨 Emergency triggered! WhatsApp opening...
+          </div>
+        </div>`;
+
+          chatBox.scrollTop = chatBox.scrollHeight;
+
+          // ❌ CALL remove kar diya (desktop issue)
+          // window.location.href = "tel:919876543210";
+
+        }, (error) => {
+          alert("Location access denied or failed");
+          console.log(error);
+        });
+
+      } else {
+        alert("Geolocation not supported");
+      }
+
+    }
+
+
+
+    // ------------------- ENTER KEY -------------------
+    chatInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // ------------------- MICROPHONE -------------------
+    if (micBtn && (window.SpeechRecognition || window.webkitSpeechRecognition)) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.lang = "en-IN";
+      recognition.interimResults = false;
+      recognition.continuous = false;
+      let listening = false;
+
+      micBtn.addEventListener("click", () => {
+        if (!listening) {
+          recognition.start(); listening = true;
+          micBtn.innerHTML = `<i class="bi bi-stop-circle-fill text-danger fs-4"></i>`;
+        } else {
+          recognition.stop(); listening = false;
+          micBtn.innerHTML = `<i class="bi bi-mic-fill fs-4"></i>`;
+        }
+      });
+
+      recognition.onresult = (e) => sendMessage(e.results[0][0].transcript);
+      recognition.onend = () => { listening = false; micBtn.innerHTML = `<i class="bi bi-mic-fill fs-4"></i>`; }
+    }
+
+    // ------------------- FILE UPLOAD + OCR -------------------
+    uploadBtn.addEventListener("click", () => fileInput.click());
+
+    fileInput.addEventListener("change", async () => {
+      if (fileInput.files.length === 0) return;
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append("file", file);
+
+      chatBox.innerHTML += `
     <div class="mb-2 text-left">
       <div class="inline-block bg-yellow-100 rounded-lg p-2 text-yellow-700">Processing file…</div>
     </div>`;
-  chatBox.scrollTop = chatBox.scrollHeight;
+      chatBox.scrollTop = chatBox.scrollHeight;
 
-  try {
-    const res = await fetch("/chatbot/ocr", {
-      method: "POST",
-      body: formData
-    });
-    const data = await res.json();
+      try {
+        const res = await fetch("/chatbot/ocr", {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
 
-    chatBox.innerHTML += `
+        chatBox.innerHTML += `
       <div class="mb-2 text-left">
         <div class="inline-block bg-blue-100 rounded-lg p-2 text-blue-700">${data.answer}</div>
       </div>`;
-    chatBox.scrollTop = chatBox.scrollHeight;
-  } catch {
-    chatBox.innerHTML += `
+        chatBox.scrollTop = chatBox.scrollHeight;
+      } catch {
+        chatBox.innerHTML += `
       <div class="mb-2 text-left">
         <div class="inline-block bg-red-100 rounded-lg p-2 text-red-600">OCR failed. Try again.</div>
       </div>`;
-  }
-});
+      }
+    });
+
+    function fakeLogin() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (email === "" || password === "") {
+        alert("Please enter login details");
+        return;
+      }
+
+      document.getElementById("loginSection").style.display = "none";
+      document.getElementById("lifeForm").style.display = "block";
+      document.getElementById("chatSection").style.display = "block";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+
+      [email, password].forEach(input => {
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            fakeLogin();
+          }
+        });
+      });
+    });
 
 
 
-</script>
+
+
+  </script>
 
 
 
 </body>
+
 </html>

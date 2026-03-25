@@ -1,14 +1,13 @@
 import joblib
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
+import random
 import pandas as pd
 from chatbot.chatbot_routes import chatbot_bp
 
-
 app = Flask(__name__)
-
+app.secret_key = "super_secret_key"
 
 app.register_blueprint(chatbot_bp)
-
 
 # ================= LOAD MODEL =================
 model = joblib.load("model/model.pkl")
@@ -60,11 +59,13 @@ def generate_health_advice(bmi, smoking, alcohol):
     return factors, recommendations
 
 # ================= ROUTES =================
+
 @app.route("/")
 def index():
     return render_template(
         "life-expectancy-calculator.html",
-        countries=country_list
+        countries=country_list,
+        logged_in=session.get("logged_in", False)
     )
 
 @app.route("/predict", methods=["POST"])
@@ -119,16 +120,42 @@ def predict():
         bmi, smoking, alcohol
     )
 
-    # ✅ KEY FIX HERE
     return jsonify({
         "result": prediction,
         "factors": factors,
         "recommendations": recommendations
     })
 
+# ================= LOGIN SYSTEM =================
+
+@app.route("/send-otp", methods=["POST"])
+def send_otp():
+    data = request.get_json()
+    phone = data.get("phone")
+
+    otp = str(random.randint(1000, 9999))
+    session["otp"] = otp
+
+    print("OTP:", otp)
+
+    return jsonify({
+        "message": "OTP sent",
+        "demo_otp": otp
+    })
+
+@app.route("/verify-otp", methods=["POST"])
+def verify_otp():
+    data = request.get_json()
+    user_otp = data.get("otp")
+
+    if session.get("otp") == user_otp:
+        session["logged_in"] = True
+        return jsonify({"status": "success"})
+    else:
+        return jsonify({"status": "failed"})
+
 @app.route("/result")
 def result():
-    # ✅ KEY FIX HERE
     predicted = request.args.get(
         "predicted_life_expectancy", type=float
     )
